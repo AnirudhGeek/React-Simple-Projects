@@ -2,7 +2,7 @@ import React from "react";
 
 const Rules = () => {
   return (
-    <div className="bg-[#FBF1F1] w-fit h-fit top-[776px] left-[338px] p-5 flex flex-col gap-6 mt-2">
+    <div className="bg-[#FBF1F1] w-fit h-fit absolute top-[776px] left-[338px] p-5 flex flex-col gap-6 mt-2">
       <div className="w-70 h-9 font-bold text-2xl">
         <h3>How to play dice game</h3>
       </div>

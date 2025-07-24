@@ -1,16 +1,6 @@
 import React, { useState } from "react";
-import Rules from "./Rules";
 
-const MainButtons = ({ val }) => {
-  const [isRules, setIsRules] = useState(false);
-  const [isReset, setIsReset] = useState(false);
-  function toggle() {
-    if (val === "Show Rules") {
-      setIsRules((prev) => !prev);
-    } else {
-      setIsReset((prev) => !prev);
-    }
-  }
+const MainButtons = ({ val ,toggle}) => {
   return (
     <div>
       <div>
@@ -25,7 +15,6 @@ const MainButtons = ({ val }) => {
           {val}
         </button>
       </div>
-      {isRules ? <Rules /> : ""}
     </div>
   );
 };
