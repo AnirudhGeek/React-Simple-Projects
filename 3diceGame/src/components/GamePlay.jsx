@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import DiceSelectBtn from "./DiceSelectBtn";
 import MainComponent from "./MainComponent";
 
 const GamePlay = () => {
+    const [isActive,setIsActive] = useState(false)
+    function toggleActive(){
+        console.log(isActive)
+        setIsActive(prev=>!prev)
+        console.log(isActive)
+    }
   return (
     <div className=" relative flex justify-center items-center">
       <div className="w-fit h-fit mt-16 flex items-center justify-center gap-148.25">
@@ -12,12 +18,12 @@ const GamePlay = () => {
         </div>
         <div className="w-fit h-fit flex flex-col gap-7.5 items-end">
             <div className="w-fit h-fit flex gap-6">
-                <DiceSelectBtn diceNumber={1}/>
-                <DiceSelectBtn diceNumber={2}/>
-                <DiceSelectBtn diceNumber={3}/>
-                <DiceSelectBtn diceNumber={4}/>
-                <DiceSelectBtn diceNumber={5}/>
-                <DiceSelectBtn diceNumber={6}/>
+                <DiceSelectBtn toggleActive={toggleActive} diceNumber={1}/>
+                <DiceSelectBtn toggleActive={toggleActive} diceNumber={2}/>
+                <DiceSelectBtn toggleActive={toggleActive} diceNumber={3}/>
+                <DiceSelectBtn toggleActive={toggleActive} diceNumber={4}/>
+                <DiceSelectBtn toggleActive={toggleActive} diceNumber={5}/>
+                <DiceSelectBtn toggleActive={toggleActive} diceNumber={6}/>
             </div>
             <h4 className="w-45.5 h-9 font-bold text-2xl">Select Number</h4>
         </div>

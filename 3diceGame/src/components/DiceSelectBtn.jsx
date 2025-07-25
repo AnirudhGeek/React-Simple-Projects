@@ -1,8 +1,11 @@
 import React from "react";
 
-const DiceSelectBtn = ({diceNumber}) => {
+const DiceSelectBtn = ({ diceNumber, toggleActive }) => {
   return (
-    <div className="w-9 h-9 border bg-white text-black flex items-center justify-center cursor-pointer hover:bg-gray-300">
+    <div
+      onClick={toggleActive}
+      className={`w-9 h-9 border bg-white text-black flex items-center justify-center cursor-pointer hover:bg-gray-300 `}
+    >
       {diceNumber}
     </div>
   );
