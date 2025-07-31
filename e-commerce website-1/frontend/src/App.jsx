@@ -13,7 +13,6 @@ import Orders from "./pages/Orders";
 import Navbar from "./components/Navbar";
 import { Route } from "react-router-dom";
 
-//laptop's fans got damaged;)
 
 const App = () => {
   return (
