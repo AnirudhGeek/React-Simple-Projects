@@ -12,6 +12,7 @@ import Login from "./pages/Login";
 import Orders from "./pages/Orders";
 import Navbar from "./components/Navbar";
 import { Route } from "react-router-dom";
+import Footer from "./components/Footer";
 
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/place-order" element={<PlaceOrder />} />
         <Route path="/orders" element={<Orders />} />
       </Routes>
+      <Footer/>
     </div>
   );
 };
