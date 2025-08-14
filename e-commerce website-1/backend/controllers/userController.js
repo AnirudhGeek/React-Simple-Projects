@@ -1,25 +1,78 @@
 //here we add the logic for the user to create an account or login an existing account
 
-//Route for user login
-const loginUser = async(req,res)=>{
+import userModel from "../models/userModel.js";
+import validator from "validator";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
-}
+const createToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET);
+};
+
+//Route for user login
+const loginUser = async (req, res) => {};
 
 //Route for user register
-const registerUser = async(req,res)=>{
+const registerUser = async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+    
+    //checking user already exist
+    const exists = await userModel.findOne({ email });
+    if (exists) {
+      return res.json({
+        success: false,
+        message: "User already exists",
+      });
+    }
+
+    //validating email format and strong password
+    if (!validator.isEmail(email)) {
+      return res.json({
+        success: false,
+        message: "Please enter a valid email",
+      });
+    }
+    if (password.length < 8) {
+      return res.json({
+        success: false,
+        message: "Please generate a strong password",
+      });
+    }
+
+    //hashing user password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    //creating the new user
+    const newUser = new userModel({
+      name,
+      email,
+      password: hashedPassword,
+    });
+
+    //saving user in the database
+    const user = await newUser.save();
+
+    //providing token so that user can login in the application
+    const token = createToken(user._id);
+
     res.json({
-        msg : "Register API working"
-    })
-}
+      success: true,
+      token,
+    });
+
+
+  } catch (error) {
+    console.log(error);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 
 //Route for admin login
-const adminLogin = async(req,res)=>{
+const adminLogin = async (req, res) => {};
 
-}
-
-
-export {
-    loginUser,
-    registerUser,
-    adminLogin
-}
+export { loginUser, registerUser, adminLogin };
