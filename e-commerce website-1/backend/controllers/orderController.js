@@ -7,31 +7,31 @@ const placeOrder = async (req, res) => {
   try {
     const { userId, items, amount, address } = req.body;
     const orderData = {
-        userId,
-        items,
-        address,
-        amount,
-        paymentMethod:"COD",
-        payment: false,
-        date:Date.now()
-    }
+      userId,
+      items,
+      address,
+      amount,
+      paymentMethod: "COD",
+      payment: false,
+      date: Date.now(),
+    };
 
-    const newOrder = new orderModel(orderData)
-    await newOrder.save()
+    const newOrder = new orderModel(orderData);
+    await newOrder.save();
 
-    //so now whenver the order data is placed we have to clear up the cartData of this user 
-    await userModel.findByIdAndUpdate(userId,{cartData:{}})
+    //so now whenver the order data is placed we have to clear up the cartData of this user
+    await userModel.findByIdAndUpdate(userId, { cartData: {} });
 
     res.json({
-        success : true,
-        message: "Order Placed"
-    })
+      success: true,
+      message: "Order Placed",
+    });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.json({
-        success : false,
-        message : error.message
-    })
+      success: false,
+      message: error.message,
+    });
   }
 };
 
@@ -43,24 +43,37 @@ const placeOrderRazorpay = async (req, res) => {};
 
 //All orders data for Admin Panel
 const allOrders = async (req, res) => {
+  try {
+    const orders = await orderModel.find({});
+    res.json({
+      success: true,
+      orders,
+    });
+  } catch (error) {
+    console.log(error)
+    res.json({
+      success : false ,
+      message : error.message
+    })
+  }
 };
 
 //User Order data for frontend
 const userOrders = async (req, res) => {
-    try {
-        const {userId} = req.body
-        const orders = await orderModel.find({userId})
-        res.json({
-            success : true,
-            orders
-        })
-    } catch (error) {
-        console.log(error)
-        res.json({
-            success : false,
-            message : error.message
-        })
-    }
+  try {
+    const { userId } = req.body;
+    const orders = await orderModel.find({ userId });
+    res.json({
+      success: true,
+      orders,
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
 };
 
 //update order status from Admin Panel
